@@ -1,0 +1,18 @@
+﻿@model ProjectEntity
+
+<div class="card">
+    <div class="card-top">
+        <div class="card-img-title-company">
+            <div class="card-img"><img src="/images/project_img.svg"></div>
+            <div class="card-title-company">
+                <div class="card-title"><h6>@Model.ProjectName</h6></div>
+                <div class="card-company">@Model.ClientName</div>
+            </div>
+        </div>
+        <div class="card-moreOptions"><img src="/images/more_icon.svg"></div>
+    </div>
+    <div class="card-description">
+        <p class="text">@Model.Description</p>
+    </div>
+</div>
+
