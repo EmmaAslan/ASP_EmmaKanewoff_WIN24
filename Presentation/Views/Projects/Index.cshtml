@@ -1,5 +1,47 @@
-﻿@{
+﻿@model IEnumerable<Project> 
+@{
     ViewData["Title"] = "Projects";
 }
+<div class="App"> 
+    <div class="navbar">
+        @await Html.PartialAsync("Partials/_NavbarPartial")
+    </div>
+    
+    <div class="main">     
+        <div class="topbar">
+            @await Html.PartialAsync("Partials/_TopbarPartial")
+        </div>
 
-<h1>@ViewData["Title"]</h1>
+        <div class="page-header">
+            <h1>@ViewData["Title"]</h1>
+            <button class="btn btn-add"> <i class="fa-solid fa-plus"></i> <span>Add Project</span></button>
+        </div>
+
+        <div class="status-sorting">
+            <a href="#">All [8]</a>
+            <a href="#">Not started [1]</a>
+            <a href="#">Started [4]</a>
+            <a href="#">Completed [3]</a>
+        </div>
+
+        <div class="card-section">
+            @if (Model != null)
+            {
+                @foreach (var project in Model)
+                {
+                    @await Html.PartialAsync("Partials/_ProjectCardPartial")
+                }
+            }
+        </div>
+
+    </div>
+
+     
+    
+    
+
+
+
+    
+
+</div>

@@ -1,0 +1,319 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+/* CSS Reset - Skapad av ChatGPT-4-turbo */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Gör så att all text ärver den bästa renderingen - Skapad av ChatGPT-4-turbo */
+html {
+    font-size: 100%;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+/* Ta bort standard-styling för listor - Skapad av ChatGPT-4-turbo */
+ul, ol {
+    list-style: none;
+}
+
+/* Gör länkar neutrala - Skapad av ChatGPT-4-turbo */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Se till att bilder inte blir större än sitt container-element - Skapad av ChatGPT-4-turbo */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Ta bort standardstilar för tabeller - ChatGPT-4-turbo*/
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Säkerställ att body tar upp hela höjden - ChatGPT-4-turbo*/
+body {
+    min-height: 100vh;
+}
+
+
+:root {
+    --font-standard: "Nunito", sans-serif;
+    --font-logo: "Comfortaa", sans-serif;
+    --font-fa-pro: "Font Awesome 6 Pro";
+
+    --primary-color: #000;
+    --secondary-color: #2D99FF;
+    --text-color: #000;
+    --text-dim: #555;
+    --text-light: #fff;
+    --border-color: #00000030;
+    --heading: #1A1926;
+    --body-light: #637085;
+    --body-dark: #28263B;
+    --gray100: #F5F7FA;
+    --gray200: #F0F1F5;
+    --gray300: #E8EAED;
+    --gray400: #E3E5E8;
+    --border100: #EBEEF2;
+    --border200: #E3E5E8;
+    --border300: #C6C8CC;
+    --bg-color: #F1F3F7;
+    --surface: #FFFFFF;
+    --accent: #2D99FF;
+    --accent-rgb: 45, 153, 255;
+    --orange: #FF9640;
+    --red: #FF6640;
+    --yellow: #FFD422;
+    --blue1: #2CD9D9;
+    --green: #31D482;
+    --dark-green: #24B26B;
+    --dark-orange: #F09330;
+    --dark-red: #E94D3F;
+    --dark-blue: #2D7DCC;
+    --dark-purple: #634CD4;
+    --accent-dark: #2682D9;
+    --btn-bg-color: var(--accent);
+    --btn-bg-hover-color: var(--accent-dark);
+    --btn-bg-shadow-color: rgba(45, 153, 255, 0.35);
+    --btn-bg-gray-color: #F5F7FA;
+    --btn-text-color: var(--text-light);
+    --nav-bg-color: rgba(45, 153, 255, 0.10);
+    --nav-bg-hover-color: rgba(45, 153, 255, 0.10);
+    --nav-text-color: var(--accent);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', 'Poppins', 'Roboto', sans-serif;
+    list-style: none;
+}
+
+html, body {
+    font-family: var(--font-standard);
+    font-style: normal;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 36px;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 32px;
+}
+
+h3 {
+    font-weight: 700;
+    font-size: 28px;
+}
+
+h4 {
+    font-weight: 600;
+    font-size: 24px;
+}
+
+h5 {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+h6 {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+
+body {
+    display: flex;
+    background-color: var(--bg-color);
+    flex-direction: column;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 24px;
+    border-radius: 14px;
+    background-color: var(--btn-bg-color);
+    color: var(--btn-text-color);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.btn-blue {
+    background-color: var(--btn-bg-color);
+    color: var(--btn-text-color);
+}
+
+.btn-gray {
+    background-color: var(----btn-bg-gray-color);
+    color: var(--text-light);
+}
+
+.btn:hover {
+    background-color: var(--btn-bg-hover-color);
+    color: var(--btn-text-color);
+}
+
+input, textarea, select {
+    width: 100%;
+    border: 1px solid var(--border100);
+    border-radius: 14px;
+    margin-top: 9px;
+    padding: 16px;
+}
+
+button > i {
+    padding-right: .55rem;
+}
+
+.App {
+    height: 100vh;
+    display: flex;
+}
+
+.main {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.page-header {
+    margin: 2rem 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* TopbarPartial */
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    height: 80px;
+    padding: 20px 30px;
+    border-bottom: 1px solid var(--border200);
+}
+
+.divider {
+    width: 1px;
+    height: 80%;
+    background-color: var(--border200);
+    margin: 0 10px;
+}
+
+.topbar div:not(.divider) {
+    padding: 0 10px
+}
+
+
+
+/* NavbarPartial*/
+
+.navbar {
+    text-align: left;
+    width: 100%;
+    max-width: 270px;
+    height: 100%;
+    height: 100vh;
+    border-right: 1px solid var(--border200);
+}
+
+    .navbar li {
+        margin: 10px;
+        padding: 15px 20px;
+    }
+
+
+li:not(.logo) {
+    color: var(--accent);
+    background-color: rgba(var(--accent-rgb), 0.1);
+    border-radius: 16px;
+}
+
+.icontext a {
+    display: flex;
+    gap: 15px;
+}
+
+
+
+/* ProjectCardPartial */
+
+.card-section {
+    margin-top: 34px;
+    display: flex;
+    gap: 34px;
+}
+
+.card {
+    height: 272px;
+    width: 350px;
+    background-color: var(--surface);
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 16px;
+}
+
+.card-img-title-company {
+    display: flex;
+    gap: 16px;
+}
+
+.card-title-company {
+    padding: 4px;
+}
+
+.card-title {
+    color: var(--heading);
+}
+
+.card-company {
+    color: var(--body-light)
+}
+
+.card-description {
+    font-size: 15px;
+}
+
+/* */
+
+.status-sorting {
+    border-bottom: 1px solid var(--border200);
+    display: flex;
+    gap: 1.5rem;
+    margin: 0 1rem;
+}
+
+    .status-sorting > a {
+        font-size: 15px;
+        font-weight: bold;
+        color: var(--body-light);
+        text-transform: uppercase;
+    }
+
+        .status-sorting > a:hover {
+            border-bottom: 2px solid var(--accent);
+            color: var(--accent);
+        }
