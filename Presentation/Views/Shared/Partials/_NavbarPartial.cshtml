@@ -1,6 +1,6 @@
-﻿<nav>
-    <ul>
-        <li class="logo"><a href="#home"><img src="/images/alpha_logo.svg"></a></li>
-        <li class="icontext"><a href="#projects"><img src="/images/project_icon.svg">Projects</a></li>
-    </ul>
+﻿<nav class="navbar">    
+    <a class="nav-link @(Context.Request.Path == "/admin/projects" ? "active" : "")" asp-controller="Admin" asp-action="Projects">
+        <img src="/images/project_icon.svg">
+        <span>Projects</span>
+    </a>
 </nav>

@@ -1,4 +1,4 @@
-﻿@model ProjectEntity
+﻿@model Project
 
 <div class="card">
     <div class="card-top">
@@ -9,10 +9,29 @@
                 <div class="card-company">@Model.ClientName</div>
             </div>
         </div>
-        <div class="card-moreOptions"><img src="/images/more_icon.svg"></div>
+
+        <div class="card-moreOptions">
+            <i class="fa-solid fa-ellipsis"></i>
+
+
+            @* Lägg till funktion för att visa setting-boxen *@
+
+             <div class="card-setting-box">
+                @await Html.PartialAsync("Partials/_CardSettingBoxPartial")
+            </div> 
+        </div>
+
+        
+
     </div>
     <div class="card-description">
         <p class="text">@Model.Description</p>
     </div>
 </div>
 
+
+<script>
+
+ 
+
+</script>

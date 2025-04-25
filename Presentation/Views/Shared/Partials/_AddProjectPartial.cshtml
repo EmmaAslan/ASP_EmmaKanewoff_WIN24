@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Add Project";
+}
+<div id="addProjectModal" class="modal">
+    <section class="container add-project-section modal-content">
+        <form novalidate method="post" asp-action="AddProject">
+            <div class="topRow modal-header">
+                <h3>Add Project</h3>
+                <button type="button" class="" data-close="true"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <img src="/images/project_img.svg" alt="" class="project-img">
+
+            <div class="input-box">
+                <div>
+                    <label for="projectName">Project Name</label>
+                    <input type="text" id="projectName" name="projectName" class="input-oneRow" placeholder="Project Name">
+                </div>
+
+                <div>
+                    <label for="clientName">Client Name</label>
+                    <input type="text" id="clientName" name="clientName" class="input-oneRow" placeholder="Client Name">
+                </div>
+
+                <div>
+                    <label for="projectName">Description</label>
+                    <textarea name="description" id="description" cols="30" rows="10" placeholder="Type Something"></textarea>
+
+                </div>
+
+                 <div class="date-row"> 
+                    <div>
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate" name="startDate" class="input-oneRow">
+                    </div>
+                    <div>
+                        <label for="endDate">End Date</label>
+                        <input type="date" id="endDate" name="endDate" class="input-oneRow">
+                    </div>
+                 </div> 
+
+               
+                <div class="budget">
+                    <label for="budget">Budget</label>
+                    <input type="text" id="budget" name="budget" class="input-oneRow" placeholder="Budget">
+                </div>
+
+                <div class="status">
+                    <label for="status">Status</label>
+                    <select name="status" id="status" class="input-oneRow" required>
+                        <option value="" disabled selected class="placeholder-select">Select status</option>
+                        <option value="Started">Started</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn">Create</button>
+        </form>
+    </section>
+</div>

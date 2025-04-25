@@ -1,12 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Business.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers;
 
 [Route("admin/projects")]
-public class ProjectsController : Controller
+public class ProjectsController(IProjectService projectService) : Controller
 {
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var projects = await projectService.GetAllProjectsAsync();
+
+        return View(projects);
     }
+
+
 }

@@ -10,21 +10,15 @@
 </head>
 <body>
 
-    <div class="wrapper-portal">
-        <aside class="sidebar">
-            <partial name="Partials/_LinkLogotype" />
-             @* @await Html.PartialAsync("Partials/_NavbarPartial")  *@
-             <partial name="Partials/_NavbarPartial" />
-        </aside>
-
-        <header class="header">
-            @await Html.PartialAsync("Partials/_TopbarPartial")
-        </header>
+    
+    <div class="wrapper-centerscreen">
         <main class="main">
             @RenderBody()
         </main>
+
+
     </div>
-    
+
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

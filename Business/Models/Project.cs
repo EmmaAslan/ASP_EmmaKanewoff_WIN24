@@ -1,4 +1,4 @@
-﻿namespace Domain.Models;
+﻿namespace Business.Models;
 
 public class Project
 {
@@ -9,5 +9,5 @@ public class Project
     public DateTime StartDate { get; set; }
     public DateTime? EndDate { get; set; }
     public decimal? Budget { get; set; }
-    //public Status Status { get; set; } = null!;
+    public string Status { get; set; } = null!;
 }

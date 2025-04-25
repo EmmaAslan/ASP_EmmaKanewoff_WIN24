@@ -1,47 +1,116 @@
 ﻿@model IEnumerable<Project> 
 @{
     ViewData["Title"] = "Projects";
-}
-<div class="App"> 
-    <div class="navbar">
-        @await Html.PartialAsync("Partials/_NavbarPartial")
-    </div>
-    
-    <div class="main">     
-        <div class="topbar">
-            @await Html.PartialAsync("Partials/_TopbarPartial")
-        </div>
 
+    List<Project> projectNotStarted = [];
+    List<Project> projectStarted = [];
+    List<Project> projectCompleted = [];
+
+    foreach(var project in Model)
+    {
+        if(project.Status == "Not Started")
+        {
+            projectNotStarted.Add(project);
+            continue;
+        }
+
+        if (project.Status == "Started")
+        {
+            projectStarted.Add(project);
+            continue;
+        }
+
+        if (project.Status == "Completed")
+        {
+            projectCompleted.Add(project);
+        }
+    }
+
+}
+
+<div class="App"> 
+
+    <partial name="Partials/_AddProjectPartial" />
         <div class="page-header">
             <h1>@ViewData["Title"]</h1>
-            <button class="btn btn-add"> <i class="fa-solid fa-plus"></i> <span>Add Project</span></button>
+            <button type="button" data-modal="true" data-target="#addProjectModal" class="btn btn-add" > <i class="fa-solid fa-plus"></i> <span>Add Project</span></button>
         </div>
 
         <div class="status-sorting">
-            <a href="#">All [8]</a>
-            <a href="#">Not started [1]</a>
-            <a href="#">Started [4]</a>
-            <a href="#">Completed [3]</a>
+            <p onClick="selectStatusView('all', this)" class="activeStatus">All [@Model.Count()]</p>
+            <p onClick="selectStatusView('notStarted', this)">Not started [@projectNotStarted.Count()]</p>
+            <p onClick="selectStatusView('started', this)">Started [@projectStarted.Count()]</p>
+            <p onClick="selectStatusView('completed', this)">Completed [@projectCompleted.Count()]</p>
         </div>
 
-        <div class="card-section">
+    <div id="all" class="card-section card-section-active">
             @if (Model != null)
             {
                 @foreach (var project in Model)
                 {
-                    @await Html.PartialAsync("Partials/_ProjectCardPartial")
+                    @await Html.PartialAsync("Partials/_ProjectCardPartial", project)
                 }
             }
         </div>
 
+    <div id="notStarted" class="card-section ">
+        @if (Model != null)
+        {
+            @foreach (var project in projectNotStarted)
+            {
+                @await Html.PartialAsync("Partials/_ProjectCardPartial", project)
+            }
+        }
     </div>
 
-     
-    
-    
+    <div id="started" class="card-section ">
+        @if (Model != null)
+        {
+            @foreach (var project in projectStarted)
+            {
+                @await Html.PartialAsync("Partials/_ProjectCardPartial", project)
+            }
+        }
+    </div>
 
+    <div id="completed" class="card-section ">
+        @if (Model != null)
+        {
+            @foreach (var project in projectCompleted)
+            {
+                @await Html.PartialAsync("Partials/_ProjectCardPartial", project)
+            }
+        }
+    </div>
 
-
-    
 
 </div>
+
+
+
+<script>
+    function selectStatusView(id, event) {
+        const sections = document.querySelectorAll(".card-section")
+        
+        // sections.map(section)
+
+        sections.forEach(section => {
+        section.classList.remove("card-section-active")
+        })
+
+        const selected = document.getElementById(id)
+
+        selected.classList.add("card-section-active")
+
+        const statusLinks = document.querySelectorAll(".status-sorting p");
+        statusLinks.forEach(link => {
+            link.classList.remove("activeStatus");
+        });
+
+        event.classList.add("activeStatus");
+
+    }
+
+
+
+</script>

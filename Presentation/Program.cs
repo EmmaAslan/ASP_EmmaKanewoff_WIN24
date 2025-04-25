@@ -1,3 +1,4 @@
+using Business.Services;
 using Data.Contexts;
 using Data.Entities;
 using Data.Repositories;
@@ -16,8 +17,20 @@ builder.Services.AddIdentity<UserEntity, IdentityRole>(x =>
     x.Password.RequiredLength = 8;
 }).AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
 
+//builder.Services.ConfigureApplicationCookie(x =>
+//{
+//    x.LoginPath = "/auth/signin";
+//    x.AccessDeniedPath = "/auth/access-denied";
+//    x.Cookie.HttpOnly = true;
+//    x.Cookie.IsEssential = true;
+//    x.Cookie.Expiration = TimeSpan.FromHours(1);
+//    x.SlidingExpiration = true;
+
+//});
+
 
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
 
 
 var app = builder.Build();
