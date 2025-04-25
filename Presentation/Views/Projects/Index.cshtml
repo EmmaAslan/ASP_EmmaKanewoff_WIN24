@@ -30,7 +30,8 @@
 
 <div class="App"> 
 
-    <partial name="Partials/_AddProjectPartial" />
+        <partial name="Partials/_AddProjectPartial" model="new AddProjectForm()" />
+    <partial name="Partials/_EditProjectForm" model="new AddProjectForm()" />
         <div class="page-header">
             <h1>@ViewData["Title"]</h1>
             <button type="button" data-modal="true" data-target="#addProjectModal" class="btn btn-add" > <i class="fa-solid fa-plus"></i> <span>Add Project</span></button>
@@ -91,8 +92,6 @@
 <script>
     function selectStatusView(id, event) {
         const sections = document.querySelectorAll(".card-section")
-        
-        // sections.map(section)
 
         sections.forEach(section => {
         section.classList.remove("card-section-active")

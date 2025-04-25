@@ -1,4 +1,5 @@
-﻿using Business.Services;
+﻿using Business.Models;
+using Business.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers;
@@ -13,5 +14,13 @@ public class ProjectsController(IProjectService projectService) : Controller
         return View(projects);
     }
 
+    [HttpPost]
+    public IActionResult AddProject(AddProjectForm form)
+    {
+        if (!ModelState.IsValid)
+            return RedirectToAction("projects");
+
+        return View();
+    }
 
 }

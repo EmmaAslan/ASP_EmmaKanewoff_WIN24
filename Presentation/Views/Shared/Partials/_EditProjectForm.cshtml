@@ -4,11 +4,12 @@
     ViewData["Title"] = "Add Project";
 }
 
-<div id="addProjectModal" class="modal">
+<div id="editProjectModal" class="modal">
     <section class="container add-project-section modal-content">
-        <form novalidate method="post" asp-action="AddProject"  asp-controller="Projects">
+
+        <form novalidate method="post" asp-action="EditProject" asp-controller="Projects">
             <div class="topRow modal-header">
-                <h3>Add Project</h3>
+                <h3>Edit Project</h3>
                 <button type="button" class="" data-close="true"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
@@ -21,7 +22,7 @@
                 </div>
 
                 <div>
-                    <label asp-for="ClientName">Client Name</label> <span asp-validation-for="ClientName" class ="field-validation-error"></span>
+                    <label asp-for="ClientName">Client Name</label> <span asp-validation-for="ClientName" class="field-validation-error"></span>
                     <input type="text" id="clientName" name="clientName" asp-for="ClientName" class="input-oneRow">
                 </div>
 
@@ -30,7 +31,7 @@
                     <textarea name="description" id="description" cols="30" rows="10" asp-for="Description"></textarea>
                 </div>
 
-                 <div class="date-row"> 
+                <div class="date-row">
                     <div>
                         <label asp-for="StartDate">Start Date</label> <span asp-validation-for="StartDate" class="field-validation-error"></span>
                         <input type="date" id="startDate" name="startDate" asp-for="StartDate" class="input-oneRow">
@@ -39,8 +40,8 @@
                         <label asp-for="EndDate">End Date</label>
                         <input type="date" id="endDate" name="endDate" asp-for="EndDate" class="input-oneRow">
                     </div>
-                 </div> 
-               
+                </div>
+
                 <div class="budget">
                     <label asp-for="Budget">Budget</label>
                     <input type="text" id="budget" name="budget" asp-for="Budget" class="input-oneRow">

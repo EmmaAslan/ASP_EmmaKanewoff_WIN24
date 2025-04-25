@@ -11,14 +11,22 @@
         </div>
 
         <div class="card-moreOptions">
-            <i class="fa-solid fa-ellipsis"></i>
-
-
-            @* Lägg till funktion för att visa setting-boxen *@
+            <i class="fa-solid fa-ellipsis" onclick="openEditRemove(this)"></i>
 
              <div class="card-setting-box">
-                @await Html.PartialAsync("Partials/_CardSettingBoxPartial")
+                <div class="card-setting-box-edit" data-modal="true" data-target="#editProjectModal">
+                    <img src="/images/Edit_icon.svg">
+                    <p>Edit</p>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="card-setting-box-delete">
+                    <img src="/images/Delete_icon.svg">
+                    <p>Delete Project</p>
+                </div>
             </div> 
+           
         </div>
 
         
@@ -31,7 +39,9 @@
 
 
 <script>
-
- 
-
+    function openEditRemove(e) {
+        var card = e.closest('.card-moreOptions');
+        var cardSettingBox = card.querySelector('.card-setting-box');
+        cardSettingBox.classList.toggle('card-setting-box-active');
+    }
 </script>

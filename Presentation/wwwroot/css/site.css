@@ -474,17 +474,31 @@ a {
     margin-bottom: 2.5rem;
 }
 
-.input-box > div{
-    padding-bottom: 1rem;
-}
-
 .date-row {
     display: flex;
     justify-content: space-between;
+    gap: 1rem;
+}
+
+.date-row div {
+    flex: 1;
+}
+
+.input-box > div{
+    padding-bottom: 1.5rem;
+}
+
+.input-box {
+    position: relative;
+}
+
+.input-box div > .field-validation-error {
+    color: var(--red);  
+    font-weight: 700;
+    padding-left: 1rem;
 }
 
 /* NavbarPartial*/
-
 .nav-link {
     font-size: 1em;
     font-family: var(--font-standard);
@@ -562,14 +576,16 @@ a {
     position: relative;
     display: flex;
     align-items: center;
-    padding: 20px;
 }
 
-    .card-moreOptions:hover {
+    .card-moreOptions > i:hover {
+        
         color: #424a56;
         background-color: var(--gray-100);
         border-radius: 12px;
     }
+
+
 
     .card-moreOptions i {
         font-size: 20px;
@@ -581,11 +597,15 @@ a {
     color: var(--body-dark);
 }
 
+.fa-ellipsis {
+    padding: 1rem;
+}
 
 /* CardSettingBox */
 
 .card-setting-box {
     display: none;
+    /*display: block;*/
     align-items: stretch;
     flex-direction: column;
     justify-content: center;
@@ -599,6 +619,11 @@ a {
     right: 0;
     top: 70%;
 }
+
+.card-setting-box-active {
+    display: block;
+}
+
 
     .card-setting-box > div:not(.divider) {
         display: flex;
