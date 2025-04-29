@@ -38,8 +38,8 @@ public static class AppDbSeeder
                     ProjectName = "Website Redesign", 
                     ClientName = "GitLab Inc.", 
                     Description = "It is necessary to develop a website redesign in a corporate style.",
-                    StartDate = new DateTime(2024, 12, 1),
-                    EndDate = new DateTime(2025, 3, 31),
+                    StartDate = new DateOnly(2024, 12, 1),
+                    EndDate = new DateOnly(2025, 3, 31),
                     Budget = 68500.00m, 
                     StatusId = 1
                 },
@@ -47,7 +47,7 @@ public static class AppDbSeeder
                     ProjectName = "Landing Page",
                     ClientName = "Bitbucket, Inc.",
                     Description = "It is necessary to create a landing together with the development of design.",
-                    StartDate = new DateTime(2025, 2, 15),
+                    StartDate = new DateOnly(2025, 2, 15),
                     EndDate = null,
                     Budget = 68500.00m,
                     StatusId = 2 

@@ -31,6 +31,7 @@ builder.Services.AddIdentity<UserEntity, IdentityRole>(x =>
 
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IStatusRepository, StatusRepository>();
 
 
 var app = builder.Build();
@@ -43,7 +44,7 @@ app.UseAuthorization();
 
 app.MapStaticAssets();
 
-app.UseRewriter(new RewriteOptions().AddRedirect("^$", "/admin/projects"));
+app.UseRewriter(new RewriteOptions().AddRedirect("^$", "/projects"));
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")

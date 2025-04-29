@@ -1,0 +1,113 @@
+﻿@model AddProjectForm
+
+@{
+    ViewData["Title"] = "Add Project";
+}
+
+<div id="addProjectModal" class="modal">
+    <section class="container add-project-section modal-content">
+        <form novalidate method="post" asp-action="AddProject" asp-controller="Projects">
+            <div class="topRow modal-header">
+                <h3>Add Project</h3>
+                <button type="button" class="" data-close="true"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <img src="/images/project_img.svg" alt="" class="project-img">
+
+            <div class="input-box">
+                <div>
+                    <label asp-for="ProjectName">Project Name</label> <span asp-validation-for="ProjectName" class="field-validation-error"></span>
+                    <input type="text" id="projectName" name="projectName" asp-for="ProjectName" class="input-oneRow">
+                </div>
+
+                <div>
+                    <label asp-for="ClientName">Client Name</label> <span asp-validation-for="ClientName" class ="field-validation-error"></span>
+                    <input type="text" id="clientName" name="clientName" asp-for="ClientName" class="input-oneRow">
+                </div>
+
+                <div>
+                    <label asp-for="Description">Description</label>
+                    <div class="wysiwyg">
+                        <textarea asp-for="Description"></textarea>
+                        <div id="addProject-wysiwyg-editor" class="wysiwyg-editor"></div>
+                        <div id="addProject-wysiwyg-toolbar">
+                            <span class="ql-formats">
+                                <button class="ql-bold"></button>
+                                <button class="ql-italic"></button>
+                                <button class="ql-underline"></button>
+                            </span>
+                            <span class="ql-formats">
+                                <button class="ql-align" value=""></button>
+                                <button class="ql-align" value="center"></button>
+                                <button class="ql-align" value="right"></button>
+                            </span>
+                            <span class="ql-formats">
+                                <button class="ql-list" value="bullet"></button>
+                                <button class="ql-list" value="ordered"></button>
+                            </span>
+                            <span class="ql-formats">
+                                <button class="ql-link"></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <div class="date-row"> 
+                    <div>
+                        <label asp-for="StartDate">Start Date</label> <span asp-validation-for="StartDate" class="field-validation-error"></span>
+                        <input type="date" id="startDate" name="startDate" asp-for="StartDate" class="input-oneRow">
+                    </div>
+                    <div>
+                        <label asp-for="EndDate">End Date</label>
+                        <input type="date" id="endDate" name="endDate" asp-for="EndDate" class="input-oneRow">
+                    </div>
+                </div> 
+
+                <div class="budget">
+                    <label asp-for="Budget">Budget</label>
+                    <input type="text" id="budget" name="budget" asp-for="Budget" class="input-oneRow">
+                </div>
+
+                <div class="status">
+                    <label asp-for="Status">Status</label>  <span asp-validation-for="Status" class="field-validation-error"></span>
+                    <select name="status" id="status" asp-for="Status" class="input-oneRow" required>
+                        <option value="" disabled selected class="placeholder-select">Select status</option>
+                        @foreach (var status in ViewBag.Statuses)
+                        {
+                            <option value="@status">@status</option>
+                        }
+
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-submit">Create</button>
+        </form>
+    </section>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        handleWysiwyg('#addProject-wysiwyg-editor', '#addProject-wysiwyg-toolbar', '#Description', '@Html.Raw(ViewBag.Description ?? "")')
+    })
+
+    function handleWysiwyg(wysiwygEditorId, wysiwygToolbarId, textareaId, content) {
+        const textarea = document.querySelector(textareaId)
+        const quill = new Quill(wysiwygEditorId, {
+            modules: {
+                syntax: true,
+                toolbar: wysiwygToolbarId,
+            },
+            placeholder: 'Enter project description',
+            theme: 'snow'
+        })
+
+        if (content) {
+            quill.root.innerHTML = content;
+
+            quill.on('text-change', () => {
+                textarea.value = quill.root.innerHTML;
+            })
+        }
+    }
+</script>

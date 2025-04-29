@@ -1,63 +1,193 @@
-﻿@model AddProjectForm
+﻿@model EditProjectForm
 
 @{
-    ViewData["Title"] = "Add Project";
+    ViewData["Title"] = "Edit Project";
 }
 
 <div id="editProjectModal" class="modal">
     <section class="container add-project-section modal-content">
-
         <form novalidate method="post" asp-action="EditProject" asp-controller="Projects">
             <div class="topRow modal-header">
                 <h3>Edit Project</h3>
                 <button type="button" class="" data-close="true"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
+            <input asp-for="Id" readonly type="hidden"/>
+
             <img src="/images/project_img.svg" alt="" class="project-img">
 
             <div class="input-box">
                 <div>
                     <label asp-for="ProjectName">Project Name</label> <span asp-validation-for="ProjectName" class="field-validation-error"></span>
-                    <input type="text" id="projectName" name="projectName" asp-for="ProjectName" class="input-oneRow">
+                    <input type="text" id="projectName" name="ProjectName" asp-for="ProjectName" class="input-oneRow">
                 </div>
 
                 <div>
                     <label asp-for="ClientName">Client Name</label> <span asp-validation-for="ClientName" class="field-validation-error"></span>
-                    <input type="text" id="clientName" name="clientName" asp-for="ClientName" class="input-oneRow">
+                    <input type="text" id="clientName" name="ClientName" asp-for="ClientName" class="input-oneRow">
                 </div>
 
                 <div>
                     <label asp-for="Description">Description</label>
-                    <textarea name="description" id="description" cols="30" rows="10" asp-for="Description"></textarea>
+                    <div class="wysiwyg">
+                        <textarea asp-for="Description" name="Description"></textarea>
+                        <div id="editProject-wysiwyg-editor" class="wysiwyg-editor"></div>
+                        <div id="editProject-wysiwyg-toolbar">
+                            <span class="ql-formats">
+                                <button class="ql-bold"></button>
+                                <button class="ql-italic"></button>
+                                <button class="ql-underline"></button>
+                            </span>
+                            <span class="ql-formats">
+                                <button class="ql-align" value=""></button>
+                                <button class="ql-align" value="center"></button>
+                                <button class="ql-align" value="right"></button>
+                            </span>
+                            <span class="ql-formats">
+                                <button class="ql-list" value="bullet"></button>
+                                <button class="ql-list" value="ordered"></button>
+                            </span>
+                            <span class="ql-formats">
+                                <button class="ql-link"></button>
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="date-row">
                     <div>
                         <label asp-for="StartDate">Start Date</label> <span asp-validation-for="StartDate" class="field-validation-error"></span>
-                        <input type="date" id="startDate" name="startDate" asp-for="StartDate" class="input-oneRow">
+                        <input type="date" id="startDate" name="StartDate" asp-for="StartDate" class="input-oneRow">
                     </div>
                     <div>
                         <label asp-for="EndDate">End Date</label>
-                        <input type="date" id="endDate" name="endDate" asp-for="EndDate" class="input-oneRow">
+                        <input type="date" id="endDate" name="EndDate" asp-for="EndDate" class="input-oneRow">
                     </div>
                 </div>
 
                 <div class="budget">
                     <label asp-for="Budget">Budget</label>
-                    <input type="text" id="budget" name="budget" asp-for="Budget" class="input-oneRow">
+                    <input type="text" id="budget" name="Budget" asp-for="Budget" class="input-oneRow">
                 </div>
 
                 <div class="status">
                     <label asp-for="Status">Status</label>  <span asp-validation-for="Status" class="field-validation-error"></span>
-                    <select name="status" id="status" asp-for="Status" class="input-oneRow" required>
-                        @* <option value="" disabled selected class="placeholder-select">Select status</option>
-                        <option value="Started">Started</option>
-                        <option value="Completed">Completed</option> *@
+                    <select name="StatusId" id="status" asp-for="StatusId" class="input-oneRow" required>
+                        <option value="" disabled selected class="placeholder-select">Select status</option>
+                        @foreach (var status in await _statusRepository.GetAllAsync())
+                        {
+                            <option value="@status.Id">@status.StatusName</option>
+                        } 
+
+        
 
                     </select>
                 </div>
             </div>
-            <button type="submit" class="btn btn-submit">Create</button>
+            <button type="submit" class="btn btn-submit">Update</button>
         </form>
     </section>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        handleEditWysiwyg('#editProject-wysiwyg-editor', '#editProject-wysiwyg-toolbar', '#Description', '@Html.Raw(ViewBag.Description ?? "")')
+
+        const editProjectBtn = document.querySelectorAll('#editProject-btn');
+
+        editProjectBtn.forEach((btn) => {
+            btn.addEventListener('click', async function() {
+                const projectId = this.getAttribute('data-projectId');
+            
+                if (projectId) {
+                    try {
+                        // Fetch project data
+                        const response = await fetch(`api/getprojects/${projectId}`);
+                        console.log(response);
+                       
+                        if (response.ok) {
+                            const memberdata = await response.json();
+                            console.log(memberdata)
+                          
+
+                            // Start initilize of rich text
+                            handleEditWysiwyg('#editProject-wysiwyg-editor', '#editProject-wysiwyg-toolbar', '#Description', memberdata.description);
+
+                            // Populate form fields
+                            const form = document.querySelector('#editProjectModal form');
+                            form.querySelector('[name="Id"]').value = memberdata.id;
+                            form.querySelector('[name="ProjectName"]').value = memberdata.projectName;
+                            form.querySelector('[name="ClientName"]').value = memberdata.clientName;
+                            form.querySelector('[name="Description"]').value = memberdata.description;
+                            form.querySelector('[name="StartDate"]').value = memberdata.startDate;
+                            form.querySelector('[name="EndDate"]').value = memberdata.endDate;
+                            form.querySelector('[name="Budget"]').value = memberdata.budget;
+                            form.querySelector('[name="StatusId"]').value = memberdata.statusId;
+                        }
+                    } catch (error) {
+                        console.error('Error fetching project data:', error);
+                    }
+                }
+
+            })
+        })
+
+    
+
+    })
+
+    function handleEditWysiwyg(wysiwygEditorId, wysiwygToolbarId, textareaId, content) {
+        const textarea = document.querySelector(textareaId)
+        const quill = new Quill(wysiwygEditorId, {
+            modules: {
+                syntax: true,
+                toolbar: wysiwygToolbarId,
+            },
+            placeholder: 'Enter project description',
+            theme: 'snow'
+        })
+
+        if (content) {
+            quill.root.innerHTML = content;
+
+            quill.on('text-change', () => {
+                textarea.value = quill.root.innerHTML;
+            })
+        }
+    }
+
+    /* ------------- */ 
+    // function loadData(projectId) {
+    //     fetch(`/Projects/GetProject/${projectId}`)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             document.querySelector('#editProjectModal [name="Id"]').value = data.id;
+    //             document.querySelector('#editProjectModal [name="projectName"]').value = data.projectName;
+    //             document.querySelector('#editProjectModal [name="clientName"]').value = data.clientName;
+
+    //             // Handle description separately for the wysiwyg editor
+    //             const quill = Quill.find(document.querySelector('#editProject-wysiwyg-editor'));
+    //             quill.root.innerHTML = data.description || '';
+    //             document.querySelector('#editProjectModal [name="Description"]').value = data.description;
+
+    //             // Format dates to YYYY-MM-DD
+    //             if (data.startDate) {
+    //                 document.querySelector('#editProjectModal [name="startDate"]').value =
+    //                     new Date(data.startDate).toISOString().split('T')[0];
+    //             }
+
+    //             if (data.endDate) {
+    //                 document.querySelector('#editProjectModal [name="endDate"]').value =
+    //                     new Date(data.endDate).toISOString().split('T')[0];
+    //             }
+
+    //             document.querySelector('#editProjectModal [name="budget"]').value = data.budget;
+    //             document.querySelector('#editProjectModal [name="status"]').value = data.status;
+
+    //             // Show the modal
+    //             document.querySelector('#editProjectModal').style.display = 'flex';
+    //         })
+    //         .catch(error => console.error('Error loading project data:', error));`)
+    // }
+
+</script>

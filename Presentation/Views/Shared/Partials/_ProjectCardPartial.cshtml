@@ -14,7 +14,7 @@
             <i class="fa-solid fa-ellipsis" onclick="openEditRemove(this)"></i>
 
              <div class="card-setting-box">
-                <div class="card-setting-box-edit" data-modal="true" data-target="#editProjectModal">
+                <div id="editProject-btn" class="card-setting-box-edit" data-modal="true" data-target="#editProjectModal" data-projectId="@Model.Id"  @* onclick="loadData('@Model.Id')'" *@>
                     <img src="/images/Edit_icon.svg">
                     <p>Edit</p>
                 </div>

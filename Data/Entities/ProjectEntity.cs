@@ -12,10 +12,10 @@ public class ProjectEntity
     public string? Description { get; set; }
 
     [Column(TypeName = "date")]
-    public DateTime StartDate { get; set; }
+    public DateOnly StartDate { get; set; }
 
     [Column(TypeName = "date")]
-    public DateTime? EndDate { get; set; }
+    public DateOnly? EndDate { get; set; }
     public decimal? Budget { get; set; }
 
 

@@ -2,9 +2,11 @@
 
 namespace Business.Models;
 
-public class AddProjectForm 
+public class EditProjectForm
 {
-    [Display(Name = "Project Name", Prompt= "Enter project name")]
+    public string Id { get; set; } = null!;
+
+    [Display(Name = "Project Name", Prompt = "Enter project name")]
     [Required(ErrorMessage = "Required.")]
     [DataType(DataType.Text)]
     [StringLength(100, ErrorMessage = "Project name must be less than 100 characters.")]
@@ -17,21 +19,22 @@ public class AddProjectForm
 
     [Display(Name = "Description", Prompt = "Enter project description")]
     [DataType(DataType.Text)]
-    public string? Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     [Display(Name = "Start Date", Prompt = "Enter start date")]
     [Required(ErrorMessage = "Required.")]
     public DateOnly StartDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
     [Display(Name = "End Date", Prompt = "Enter end date")]
-    public DateOnly? EndDate { get; set; } 
+    public DateOnly? EndDate { get; set; }
 
     [Display(Name = "Budget", Prompt = "Enter budget")]
     public decimal? Budget { get; set; }
 
     [Display(Name = "Status", Prompt = "Select project status")]
-    [Required(ErrorMessage = "Required.")]
-    public string Status { get; set; } = null!;
+    //[Required(ErrorMessage = "Required.")]
+    public string? Status { get; set; }
 
     public int StatusId { get; set; }
+
 }
