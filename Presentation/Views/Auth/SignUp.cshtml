@@ -17,34 +17,53 @@
         }
         <div class="form-group-fullName">
             <div class="form-group">
-                <label asp-for="FirstName"></label>
+                <div class="label-row">
+                    <label asp-for="FirstName"></label>
+                    <span asp-validation-for="FirstName" class="field-validation-error"></span>
+                </div>
                 <input asp-for="FirstName" />
-                <span asp-validation-for="FirstName"></span>
+                
             </div>
 
             <div class="form-group">
-                <label asp-for="LastName"></label>
+                <div class="label-row">
+                    <label asp-for="LastName"></label>
+                    <span asp-validation-for="LastName" class="field-validation-error"></span>
+                </div>
+                
                 <input asp-for="LastName" />
-                <span asp-validation-for="LastName"></span>
+                
             </div>
         </div>
 
         <div class="form-group">
-            <label asp-for="Email"></label>
+            <div class="label-row">
+                <label asp-for="Email"></label>
+                <span asp-validation-for="Email" class="field-validation-error"></span>
+            </div>
+            
             <input asp-for="Email" />
-            <span asp-validation-for="Email"></span>
+            
         </div>
 
         <div class="form-group">
-            <label asp-for="Password"></label>
+            <div class="label-row">
+                <label asp-for="Password"></label>
+                <span asp-validation-for="Password" class="field-validation-error"></span>
+            </div>
+            
             <input asp-for="Password" />
-            <span asp-validation-for="Password"></span>
+            
         </div>
 
         <div class="form-group">
-            <label asp-for="ConfirmPassword"></label>
+            <div class="label-row">
+                <label asp-for="ConfirmPassword"></label>
+                <span asp-validation-for="ConfirmPassword" class="field-validation-error"></span>
+            </div>
+            
             <input asp-for="ConfirmPassword" />
-            <span asp-validation-for="ConfirmPassword"></span>
+            
         </div>
 
         <div class="form-group">

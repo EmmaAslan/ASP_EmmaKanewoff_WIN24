@@ -468,6 +468,8 @@ a {
     padding-left: 1rem;
 }
 
+
+
 #EditDescription{
     display: none;
 }
@@ -764,6 +766,12 @@ input, select, textarea {
 .form-group-fullName {
     display: flex;
     justify-content: space-between;
+}
+
+.label-row > .field-validation-error {
+    color: var(--red);
+    font-weight: 700;
+    padding-left: 1rem;
 }
 
 /* TopbarPartial */
