@@ -1,12 +1,15 @@
 ﻿using Business.Models;
 using Business.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Presentation.Controllers;
 
-public class ProjectsController(IProjectService projectService) : Controller
+[Authorize]
+public class ProjectsController(IProjectService projectService, IStatusService statusService) : Controller
 {
     private readonly IProjectService _projectService = projectService;
+    private readonly IStatusService _statusService = statusService;
 
     public async Task<IActionResult> Index()
     {
@@ -18,7 +21,7 @@ public class ProjectsController(IProjectService projectService) : Controller
     }
 
     [HttpGet]
-    [Route("api/getprojects/{id}")]
+    [Route("getprojects/{id}")]
     public async Task<IActionResult> GetProjectById(string id)
     {
         var project = await _projectService.GetProjectByIdAsync(id);
@@ -58,6 +61,22 @@ public class ProjectsController(IProjectService projectService) : Controller
 
         }
 
+        var statusId = await _statusService.GetStatusIdByNameAsync(form.Status);
+        if (statusId.HasValue)
+        {
+            form.StatusId = statusId.Value;
+        }
+        else
+        {
+            return BadRequest(new
+            {
+                success = false,
+                errors = new Dictionary<string, string[]> {
+            { "Status", new[] { "Selected status is not valid." } }
+        }
+            });
+        }
+
         var result = await _projectService.AddProjectAsync(form);
         if (result)
         {
@@ -95,5 +114,20 @@ public class ProjectsController(IProjectService projectService) : Controller
             return Problem("Unable to submit data.");
         }
     }
- }
+
+    [HttpDelete]
+    [Route("deleteproject/{id}")]
+    public async Task<IActionResult> DeleteProject(string id)
+    {
+        var result = await _projectService.DeleteProjectAsync(id);
+        if (result)
+        {
+            return Ok(new { success = true });
+        }
+        else
+        {
+            return Problem("Unable to delete project.");
+        }
+    }
+}
 

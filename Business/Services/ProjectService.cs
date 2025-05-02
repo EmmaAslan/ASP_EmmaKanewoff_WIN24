@@ -10,6 +10,7 @@ public interface IProjectService
     Task<Project?> GetProjectByIdAsync(string id);
     Task<bool> AddProjectAsync(AddProjectForm form);
     Task<bool> UpdateProjectAsync(string id, EditProjectForm form);
+    Task<bool> DeleteProjectAsync(string id);
 }
 
 public class ProjectService(IProjectRepository projectRepository) : IProjectService
@@ -68,7 +69,7 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
             StartDate = form.StartDate,
             EndDate = form.EndDate,
             Budget = form.Budget,
-            StatusId = form.StatusId // Kolla denna i AddProjectForm
+            StatusId = form.StatusId
         };
 
         return await _projectRepository.AddAsync(project);
@@ -90,11 +91,23 @@ public class ProjectService(IProjectRepository projectRepository) : IProjectServ
         project.StartDate = form.StartDate;
         project.EndDate = form.EndDate;
         project.Budget = form.Budget;
-        project.StatusId = form.StatusId; // Kolla denna i EditProjectForm
+        project.StatusId = form.StatusId;
 
 
         return await _projectRepository.UpdateAsync(project);
     }
 
-    
+    public async Task<bool> DeleteProjectAsync(string id)
+    {
+        var project = await _projectRepository.GetAsync(x => x.Id == id);
+        if (project == null)
+        {
+            return false;
+        }
+
+        var result = await _projectRepository.DeleteAsync(project);
+        return result;
+    }
+
+
 }

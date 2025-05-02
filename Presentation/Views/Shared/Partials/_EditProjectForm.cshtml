@@ -30,7 +30,7 @@
                 <div>
                     <label asp-for="Description">Description</label>
                     <div class="wysiwyg">
-                        <textarea asp-for="Description" name="Description"></textarea>
+                        <textarea asp-for="Description" id="EditDescription" ></textarea>
                         <div id="editProject-wysiwyg-editor" class="wysiwyg-editor"></div>
                         <div id="editProject-wysiwyg-toolbar">
                             <span class="ql-formats">
@@ -88,106 +88,3 @@
         </form>
     </section>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        handleEditWysiwyg('#editProject-wysiwyg-editor', '#editProject-wysiwyg-toolbar', '#Description', '@Html.Raw(ViewBag.Description ?? "")')
-
-        const editProjectBtn = document.querySelectorAll('#editProject-btn');
-
-        editProjectBtn.forEach((btn) => {
-            btn.addEventListener('click', async function() {
-                const projectId = this.getAttribute('data-projectId');
-            
-                if (projectId) {
-                    try {
-                        // Fetch project data
-                        const response = await fetch(`api/getprojects/${projectId}`);
-                        console.log(response);
-                       
-                        if (response.ok) {
-                            const memberdata = await response.json();
-                            console.log(memberdata)
-                          
-
-                            // Start initilize of rich text
-                            handleEditWysiwyg('#editProject-wysiwyg-editor', '#editProject-wysiwyg-toolbar', '#Description', memberdata.description);
-
-                            // Populate form fields
-                            const form = document.querySelector('#editProjectModal form');
-                            form.querySelector('[name="Id"]').value = memberdata.id;
-                            form.querySelector('[name="ProjectName"]').value = memberdata.projectName;
-                            form.querySelector('[name="ClientName"]').value = memberdata.clientName;
-                            form.querySelector('[name="Description"]').value = memberdata.description;
-                            form.querySelector('[name="StartDate"]').value = memberdata.startDate;
-                            form.querySelector('[name="EndDate"]').value = memberdata.endDate;
-                            form.querySelector('[name="Budget"]').value = memberdata.budget;
-                            form.querySelector('[name="StatusId"]').value = memberdata.statusId;
-                        }
-                    } catch (error) {
-                        console.error('Error fetching project data:', error);
-                    }
-                }
-
-            })
-        })
-
-    
-
-    })
-
-    function handleEditWysiwyg(wysiwygEditorId, wysiwygToolbarId, textareaId, content) {
-        const textarea = document.querySelector(textareaId)
-        const quill = new Quill(wysiwygEditorId, {
-            modules: {
-                syntax: true,
-                toolbar: wysiwygToolbarId,
-            },
-            placeholder: 'Enter project description',
-            theme: 'snow'
-        })
-
-        if (content) {
-            quill.root.innerHTML = content;
-
-            quill.on('text-change', () => {
-                textarea.value = quill.root.innerHTML;
-            })
-        }
-    }
-
-    /* ------------- */ 
-    // function loadData(projectId) {
-    //     fetch(`/Projects/GetProject/${projectId}`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             document.querySelector('#editProjectModal [name="Id"]').value = data.id;
-    //             document.querySelector('#editProjectModal [name="projectName"]').value = data.projectName;
-    //             document.querySelector('#editProjectModal [name="clientName"]').value = data.clientName;
-
-    //             // Handle description separately for the wysiwyg editor
-    //             const quill = Quill.find(document.querySelector('#editProject-wysiwyg-editor'));
-    //             quill.root.innerHTML = data.description || '';
-    //             document.querySelector('#editProjectModal [name="Description"]').value = data.description;
-
-    //             // Format dates to YYYY-MM-DD
-    //             if (data.startDate) {
-    //                 document.querySelector('#editProjectModal [name="startDate"]').value =
-    //                     new Date(data.startDate).toISOString().split('T')[0];
-    //             }
-
-    //             if (data.endDate) {
-    //                 document.querySelector('#editProjectModal [name="endDate"]').value =
-    //                     new Date(data.endDate).toISOString().split('T')[0];
-    //             }
-
-    //             document.querySelector('#editProjectModal [name="budget"]').value = data.budget;
-    //             document.querySelector('#editProjectModal [name="status"]').value = data.status;
-
-    //             // Show the modal
-    //             document.querySelector('#editProjectModal').style.display = 'flex';
-    //         })
-    //         .catch(error => console.error('Error loading project data:', error));`)
-    // }
-
-</script>

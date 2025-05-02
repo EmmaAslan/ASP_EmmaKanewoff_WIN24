@@ -8,7 +8,6 @@
     box-sizing: border-box;
 }
 
-/* Gör så att all text ärver den bästa renderingen - Skapad av ChatGPT-4-turbo */
 html {
     font-size: 100%;
     line-height: 1.5;
@@ -16,36 +15,32 @@ html {
     -ms-text-size-adjust: 100%;
 }
 
-/* Ta bort standard-styling för listor - Skapad av ChatGPT-4-turbo */
 ul, ol {
     list-style: none;
 }
 
-/* Gör länkar neutrala - Skapad av ChatGPT-4-turbo */
 a {
     text-decoration: none;
     color: inherit;
 }
 
-/* Se till att bilder inte blir större än sitt container-element - Skapad av ChatGPT-4-turbo */
 img {
     max-width: 100%;
     height: auto;
     display: block;
 }
 
-/* Ta bort standardstilar för tabeller - ChatGPT-4-turbo*/
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
 
-/* Säkerställ att body tar upp hela höjden - ChatGPT-4-turbo*/
 body {
     min-height: 100vh;
 }
 
 
+/* Root */
 :root {
     --font-standard: "Nunito", sans-serif;
     --font-logo: "Comfortaa", sans-serif;
@@ -269,6 +264,12 @@ body {
     border: none;
 }
 
+.btn-add {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .btn-blue {
     background-color: var(--btn-bg-color);
     color: var(--btn-text-color);
@@ -282,6 +283,18 @@ body {
 .btn:hover {
     background-color: var(--btn-bg-hover-color);
     color: var(--btn-text-color);
+}
+
+.btn-logout:hover {
+    text-decoration: none;
+    background-color: var(--gray-800);
+}
+
+.btn-logout {
+    display: flex;
+    gap: 0.8rem;
+    background-color: transparent;
+    color: var(--dark-600);
 }
 
 input, textarea, select {
@@ -372,48 +385,6 @@ a {
     display: flex;
     justify-content: space-between;
 }
-/*button > i {
-    padding-right: .55rem;
-}
-
-.App {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-.main {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-}
-
-.page-header {
-    margin: 2rem 1rem;
-    display: flex;
-    justify-content: space-between;
-}*/
-    /* TopbarPartial */
-    /*.topbar {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 100%;
-    height: 80px;
-    padding: 20px 30px;
-    border-bottom: 1px solid var(--border200);
-}
-
-.divider {
-    width: 1px;
-    height: 80%;
-    background-color: var(--border200);
-    margin: 0 10px;
-}
-
-.topbar div:not(.divider) {
-    padding: 0 10px
-}*/
 
 .modal {
     display: none;
@@ -497,6 +468,10 @@ a {
     padding-left: 1rem;
 }
 
+#EditDescription{
+    display: none;
+}
+
 /* NavbarPartial*/
 .nav-link {
     font-size: 1em;
@@ -523,6 +498,9 @@ a {
         text-decoration: none;
     }
 
+.navbar {
+    margin-top: 1rem;
+}
 
 /* ProjectCardPartial */
 
@@ -530,6 +508,7 @@ a {
     margin-top: 34px;
     display:none; 
     gap: 34px; 
+    flex-wrap: wrap;
 }
 
 .card-section-active {
@@ -543,6 +522,7 @@ a {
     background-color: var(--surface);
     border-radius: 16px;
     padding: 24px;
+    box-shadow: var(--box-shadow);
 }
 
 .card-top {
@@ -727,3 +707,101 @@ input, select, textarea {
     textarea:focus-visible {
         border: 1px solid var(--gray-100);
     }
+
+
+/* Login / SignUp */
+#signup > h1 {
+    padding-bottom: 3rem;
+}
+
+#login > h1 {
+    padding-bottom: 3rem;
+}
+
+#login, 
+#signup {
+    width: 600px;
+    background-color: var(--form-background-color);
+    color: var(--form-text-color);
+    padding: 4rem 4rem 1.5rem;
+    border-radius: 14px;
+    box-shadow: var(--box-shadow);
+    text-align: center;
+}
+
+    .main-center {
+        display: flex;
+        align-items: center;
+    }
+
+#login .form-group {
+    text-align: left;
+}
+
+#signup .form-group {
+    text-align: left;
+}
+
+.form-group {
+    display: grid;
+    gap: 0.2rem;
+    margin-bottom: 2rem;
+}
+
+.error-message {
+    background-color: var(--form-error-message-background-color);
+    padding: 0.6rem;
+    margin: 1rem 0;
+    border-radius: 10px;
+    color: var(--form-error-message-text-color);
+    font-weight: 500;
+}
+
+.form-footer {
+    padding-top: 1rem;
+}
+
+.form-group-fullName {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* TopbarPartial */
+
+.user-field {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.user-setting-box {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    width: 300px;
+    border-radius: 14px;
+    padding: 0.5rem;
+    background-color: var(--white-100);
+    position: absolute;
+    right: 0;
+    top: 3.7rem;
+    box-shadow: var(--box-shadow);
+}
+
+.user-setting-box-active {
+    display:flex;
+}
+
+.user-row {
+    display: flex;
+    gap: 1rem;
+    background-color: var(--white-200);
+    border-radius: 14px;
+    padding: 0.5rem;
+    align-items: center;
+}
+
+.setting-icon{
+    cursor: pointer;
+}

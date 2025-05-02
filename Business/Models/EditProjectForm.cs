@@ -19,7 +19,7 @@ public class EditProjectForm
 
     [Display(Name = "Description", Prompt = "Enter project description")]
     [DataType(DataType.Text)]
-    public string Description { get; set; } = string.Empty;
+    public string? Description { get; set; }
 
     [Display(Name = "Start Date", Prompt = "Enter start date")]
     [Required(ErrorMessage = "Required.")]
@@ -32,7 +32,6 @@ public class EditProjectForm
     public decimal? Budget { get; set; }
 
     [Display(Name = "Status", Prompt = "Select project status")]
-    //[Required(ErrorMessage = "Required.")]
     public string? Status { get; set; }
 
     public int StatusId { get; set; }

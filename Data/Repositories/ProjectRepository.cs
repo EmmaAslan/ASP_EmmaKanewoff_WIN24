@@ -93,13 +93,12 @@ public class ProjectRepository(DataContext context) : IProjectRepository
     {
         try
         {
-            var entity = await _context.Projects.FindAsync(ent);
-            if (entity == null)
+            if (ent == null)
             {
                 return false;
             }
 
-            _context.Projects.Remove(entity);
+            _context.Projects.Remove(ent);
             await _context.SaveChangesAsync();
             return true;
         }

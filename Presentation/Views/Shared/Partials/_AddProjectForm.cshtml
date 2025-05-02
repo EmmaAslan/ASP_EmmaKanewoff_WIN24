@@ -85,29 +85,3 @@
         </form>
     </section>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        handleWysiwyg('#addProject-wysiwyg-editor', '#addProject-wysiwyg-toolbar', '#Description', '@Html.Raw(ViewBag.Description ?? "")')
-    })
-
-    function handleWysiwyg(wysiwygEditorId, wysiwygToolbarId, textareaId, content) {
-        const textarea = document.querySelector(textareaId)
-        const quill = new Quill(wysiwygEditorId, {
-            modules: {
-                syntax: true,
-                toolbar: wysiwygToolbarId,
-            },
-            placeholder: 'Enter project description',
-            theme: 'snow'
-        })
-
-        if (content) {
-            quill.root.innerHTML = content;
-
-            quill.on('text-change', () => {
-                textarea.value = quill.root.innerHTML;
-            })
-        }
-    }
-</script>

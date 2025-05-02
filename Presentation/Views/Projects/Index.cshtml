@@ -30,7 +30,7 @@
 
 <div class="App"> 
 
-        <partial name="Partials/_AddProjectPartial" model="new AddProjectForm()" />
+        <partial name="Partials/_AddProjectForm" model="new AddProjectForm()" />
         <partial name="Partials/_EditProjectForm" model="new EditProjectForm()" />
         <div class="page-header">
             <h1>@ViewData["Title"]</h1>
@@ -47,7 +47,7 @@
     <div id="all" class="card-section card-section-active">
             @if (Model != null)
             {
-                @foreach (var project in Model)
+                @foreach (var project in Model.OrderBy(x => x.ProjectName))
                 {
                     @await Html.PartialAsync("Partials/_ProjectCardPartial", project)
                 }
@@ -57,7 +57,7 @@
     <div id="notStarted" class="card-section ">
         @if (Model != null)
         {
-            @foreach (var project in projectNotStarted)
+            @foreach (var project in projectNotStarted.OrderBy(x => x.ProjectName))
             {
                 @await Html.PartialAsync("Partials/_ProjectCardPartial", project)
             }
@@ -67,7 +67,7 @@
     <div id="started" class="card-section ">
         @if (Model != null)
         {
-            @foreach (var project in projectStarted)
+            @foreach (var project in projectStarted.OrderBy(x => x.ProjectName))
             {
                 @await Html.PartialAsync("Partials/_ProjectCardPartial", project)
             }
@@ -77,7 +77,7 @@
     <div id="completed" class="card-section ">
         @if (Model != null)
         {
-            @foreach (var project in projectCompleted)
+            @foreach (var project in projectCompleted.OrderBy(x => x.ProjectName))
             {
                 @await Html.PartialAsync("Partials/_ProjectCardPartial", project)
             }

@@ -1,7 +1,12 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Business.Services
 @using Data.Entities
 @using Business.Models
 @using Data.Repositories
+@using Microsoft.AspNetCore.Identity
+
+
 
 @inject IStatusRepository _statusRepository
+@inject UserManager<UserEntity> _userManager
 

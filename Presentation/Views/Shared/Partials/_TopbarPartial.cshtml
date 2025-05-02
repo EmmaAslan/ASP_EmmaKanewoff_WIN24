@@ -1,7 +1,51 @@
-﻿<div>
-    <img src="/images/settings_icon.svg">
+﻿@{
+    var userName = User.Identity?.Name;
+    var user = await _userManager.FindByNameAsync(userName!);
+}
+
+<div class="user-field">
+    <div class="setting-icon">
+        <img src="/images/settings_icon.svg">
+    </div>
+    <div class="divider"></div>
+    <div>
+        <img src="/images/profile_img.svg">
+    </div>
+
+    <div class="user-setting-box">
+        <div class="user-row">
+            <img src="~/images/profile_img.svg" alt="Alternate Text" />
+            <p>@user?.FirstName @user?.LastName</p>
+        </div>
+
+        <a class="btn btn-logout" asp-controller="Auth" asp-action="Logout"><span><i class="fa-solid fa-right-from-bracket"></i></span>Log out</a>
+    </div>
 </div>
-<div class="divider"></div>
-<div>
-    <img src="/images/profile_img.svg">
-</div>
+
+
+
+@* Skapat med hjälp av ChatGPT 4.o *@
+<script>
+
+     
+    document.addEventListener('DOMContentLoaded', function (event) {
+        const settingIcon = document.querySelector('.setting-icon');
+        const userSettingBox = document.querySelector('.user-setting-box');
+
+        settingIcon.addEventListener('click', function() {
+            userSettingBox.classList.toggle('user-setting-box-active')
+        })
+
+
+    });
+
+        document.addEventListener('click', function (event) {
+        const settingIcon = document.querySelector('.setting-icon');
+        const userSettingBox = document.querySelector('.user-setting-box');
+
+        if (!settingIcon.contains(event.target) && !userSettingBox.contains(event.target)) {
+            userSettingBox.classList.remove('user-setting-box-active');
+        }
+    });
+
+</script>

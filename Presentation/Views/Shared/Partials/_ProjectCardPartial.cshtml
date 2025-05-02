@@ -14,14 +14,14 @@
             <i class="fa-solid fa-ellipsis" onclick="openEditRemove(this)"></i>
 
              <div class="card-setting-box">
-                <div id="editProject-btn" class="card-setting-box-edit" data-modal="true" data-target="#editProjectModal" data-projectId="@Model.Id"  @* onclick="loadData('@Model.Id')'" *@>
+                <div id="editProject-btn" class="card-setting-box-edit" data-modal="true" data-target="#editProjectModal" data-projectId="@Model.Id">
                     <img src="/images/Edit_icon.svg">
                     <p>Edit</p>
                 </div>
 
                 <div class="divider"></div>
 
-                <div class="card-setting-box-delete">
+                <div class="card-setting-box-delete" onclick="deleteProject('@Model.Id')">
                     <img src="/images/Delete_icon.svg">
                     <p>Delete Project</p>
                 </div>
@@ -33,7 +33,7 @@
 
     </div>
     <div class="card-description">
-        <p class="text">@Model.Description</p>
+        @Html.Raw(@Model.Description)
     </div>
 </div>
 
@@ -43,5 +43,30 @@
         var card = e.closest('.card-moreOptions');
         var cardSettingBox = card.querySelector('.card-setting-box');
         cardSettingBox.classList.toggle('card-setting-box-active');
+    }
+
+    /* Fått hjälp av ChatGPT 4.o */
+    async function deleteProject(id) {
+        if(confirm("Are you sure you want to delete this project?")) {
+            await fetch(`deleteproject/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then (res => {
+                if (res.ok) {
+                    window.location.reload();
+                }
+                else {
+                    alert("An error occurd when trying to remove the project.")
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred when trying to remove the project. Try again later.");
+            })
+        }
+        
     }
 </script>
